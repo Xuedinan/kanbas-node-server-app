@@ -1,4 +1,5 @@
 import express from "express";
+import session from "express-session";
 import Hello from "./Hello.js";
 import Lab5 from "./Lab5/index.js";
 import cors from "cors";
@@ -9,14 +10,16 @@ import UserRoutes from "./Kanbas/Users/routes.js";
 import "dotenv/config";
 
 const app = express();
+
 app.use(
   cors({
     credentials: true,
     origin: process.env.NETLIFY_URL || "http://localhost:3000",
   })
 );
+
 const sessionOptions = {
-  secret: process.env.SESSION_SECRET || "kanbas",
+  secret: process.env.SESSION_SECRET || "kanbas", // session 加密密钥
   resave: false,
   saveUninitialized: false,
 };
@@ -31,10 +34,13 @@ if (process.env.NODE_ENV !== "development") {
 app.use(session(sessionOptions));
 
 app.use(express.json());
-
 AssignmentRoutes(app);
 ModuleRoutes(app);
 CourseRoutes(app);
 UserRoutes(app);
 Lab5(app);
-app.listen(process.env.PORT || 4000);
+
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
