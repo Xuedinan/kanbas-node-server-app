@@ -1,4 +1,5 @@
 import Database from "../Database/index.js";
+import * as dao from "./dao.js";
 
 export default function CourseRoutes(app) {
   //delete course
@@ -16,10 +17,16 @@ export default function CourseRoutes(app) {
   });
 
   // get all courses
+  // app.get("/api/courses", (req, res) => {
+  //   const courses = Database.courses;
+  //   res.send(courses);
+  // });
+
   app.get("/api/courses", (req, res) => {
-    const courses = Database.courses;
+    const courses = dao.findAllCourses();
     res.send(courses);
   });
+
   // update course
   app.put("/api/courses/:id", (req, res) => {
     const { id } = req.params;
