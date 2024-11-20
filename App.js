@@ -8,6 +8,7 @@ import ModuleRoutes from "./Kanbas/Modules/routes.js";
 import AssignmentRoutes from "./Kanbas/Assignments/routes.js";
 import UserRoutes from "./Kanbas/Users/routes.js";
 import "dotenv/config";
+import EnrollmentsRoutes from "./Kanbas/Enrollments/routes.js";
 
 const app = express();
 
@@ -39,6 +40,7 @@ ModuleRoutes(app);
 CourseRoutes(app);
 UserRoutes(app);
 Lab5(app);
+EnrollmentsRoutes(app);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
