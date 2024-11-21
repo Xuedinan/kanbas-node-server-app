@@ -1,10 +1,11 @@
 import db from "../Database/index.js";
+import * as modulesDao from "./dao.js";
 
 export default function ModuleRoutes(app) {
   // delete module
   app.delete("/api/modules/:mid", (req, res) => {
     const { mid } = req.params;
-    db.modules = db.modules.filter((m) => m._id !== mid);
+    modulesDao.deleteModule(mid);
     res.sendStatus(200);
   });
 
@@ -28,13 +29,10 @@ export default function ModuleRoutes(app) {
   });
 
   // update module
-  app.put("/api/modules/:mid", (req, res) => {
-    const { mid } = req.params;
-    const moduleIndex = db.modules.findIndex((m) => m._id === mid);
-    db.modules[moduleIndex] = {
-      ...db.modules[moduleIndex],
-      ...req.body,
-    };
+  app.put("/api/modules/:moduleId", (req, res) => {
+    const { moduleId } = req.params;
+    const moduleUpdates = req.body;
+    modulesDao.updateModule(moduleId, moduleUpdates);
     res.sendStatus(204);
   });
 }
