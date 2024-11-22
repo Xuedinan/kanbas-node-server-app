@@ -18,3 +18,4 @@ export default function EnrollmentsRoutes(app) {
     res.sendStatus(200);
   });
 }
+

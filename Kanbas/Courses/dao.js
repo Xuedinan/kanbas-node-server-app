@@ -6,6 +6,7 @@ export function findAllCourses() {
 
 export function findCoursesForEnrolledUser(userId) {
   const { courses, enrollments } = Database;
+  
   const enrolledCourses = courses.filter((course) =>
     enrollments.some(
       (enrollment) =>
