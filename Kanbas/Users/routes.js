@@ -1,12 +1,19 @@
 import * as dao from "./dao.js";
 import * as courseDao from "../Courses/dao.js";
 import * as enrollmentsDao from "../Enrollments/dao.js";
-
-// let currentUser = null;
+import { model } from "mongoose";
 
 export default function UserRoutes(app) {
-  const createUser = (req, res) => {};
-  const deleteUser = (req, res) => {};
+  const createUser = async (req, res) => {
+    const user = await dao.createUser(req.body);
+    res.json(user);
+  };
+
+  const deleteUser = async (req, res) => {
+    const status = await dao.deleteUser(req.params.userId);
+    res.json(status);
+  };
+  app.delete("/api/users/:userId", deleteUser);
 
   const findAllUsers = async (req, res) => {
     const { role, name } = req.query;
@@ -23,17 +30,23 @@ export default function UserRoutes(app) {
     const users = await dao.findAllUsers();
     res.json(users);
   };
-
   app.get("/api/users", findAllUsers);
 
-  const findUserById = (req, res) => {};
+  const findUserById = async (req, res) => {
+    const user = await dao.findUserById(req.params.userId);
+    res.json(user);
+  };
+  app.get("/api/users/:userId", findUserById);
 
-  const updateUser = (req, res) => {
-    const userId = req.params.userId;
+  const updateUser = async (req, res) => {
+    const { userId } = req.params;
     const userUpdates = req.body;
-    dao.updateUser(userId, userUpdates);
-    const currentUser = dao.findUserById(userId);
-    req.session["currentUser"] = currentUser;
+    await dao.updateUser(userId, userUpdates);
+    const currentUser = req.session["currentUser"];
+    if (currentUser && currentUser._id === userId) {
+      req.session["currentUser"] = { ...currentUser, ...userUpdates };
+    }
+
     res.json(currentUser);
   };
 
@@ -97,10 +110,7 @@ export default function UserRoutes(app) {
   app.get("/api/users/:userId/courses", findCoursesForEnrolledUser);
 
   app.post("/api/users", createUser);
-  app.get("/api/users", findAllUsers);
-  app.get("/api/users/:userId", findUserById);
   app.put("/api/users/:userId", updateUser);
-  app.delete("/api/users/:userId", deleteUser);
   app.post("/api/users/signup", signup);
   app.post("/api/users/signin", signin);
   app.post("/api/users/signout", signout);
