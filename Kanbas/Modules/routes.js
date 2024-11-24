@@ -3,10 +3,10 @@ import * as modulesDao from "./dao.js";
 
 export default function ModuleRoutes(app) {
   // delete module
-  app.delete("/api/modules/:mid", (req, res) => {
-    const { mid } = req.params;
-    modulesDao.deleteModule(mid);
-    res.sendStatus(200);
+  app.delete("/api/modules/:mid", async (req, res) => {
+    const { moduleId } = req.params;
+    const status = await modulesDao.deleteModule(moduleId);
+    res.send(status);
   });
 
   // get all modules
@@ -17,14 +17,13 @@ export default function ModuleRoutes(app) {
   });
 
   // create new module
-  app.post("/api/courses/:cid/modules", (req, res) => {
-    const { cid } = req.params;
-    const newModule = {
+  app.post("/api/courses/:cid/modules", async (req, res) => {
+    const { courseId } = req.params;
+    const module = {
       ...req.body,
-      course: cid,
-      _id: new Date().getTime().toString(),
+      course: courseId,
     };
-    db.modules.push(newModule);
+    const newModule = await modulesDao.createModule(module);
     res.send(newModule);
   });
 

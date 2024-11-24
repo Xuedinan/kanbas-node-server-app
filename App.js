@@ -18,27 +18,10 @@ mongoose.connect(CONNECTION_STRING);
 
 const app = express();
 
-// app.use(
-//   cors({
-//     credentials: true,
-//     origin: process.env.NETLIFY_URL || "http://localhost:3000",
-//   })
-// );
-
 app.use(
   cors({
     credentials: true,
-    origin: (origin, callback) => {
-      const allowedOrigins = [
-        "https://a6--kanbas-react-web-app-24fall-gao.netlify.app",
-        "http://localhost:3000",
-      ];
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: process.env.NETLIFY_URL || "http://localhost:3000",
   })
 );
 
