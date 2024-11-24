@@ -27,6 +27,8 @@ export default function CourseRoutes(app) {
   //   res.send(course);
   // });
 
+  // deploy
+
   app.post("/api/courses/:courseId/modules", (req, res) => {
     const { courseId } = req.params;
     const module = {
