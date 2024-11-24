@@ -21,10 +21,11 @@ export function deleteModule(moduleId) {
 }
 
 export function updateModule(moduleId, moduleUpdates) {
-  const { modules } = Database;
-  const module = modules.find((module) => module._id === moduleId);
-  Object.assign(module, moduleUpdates);
-  return module;
+  return model.updateOne({ _id: moduleId }, moduleUpdates);
+  // const { modules } = Database;
+  // const module = modules.find((module) => module._id === moduleId);
+  // Object.assign(module, moduleUpdates);
+  // return module;
 }
 export function findModulesForCourse(courseId) {
   return model.find({ course: courseId });
