@@ -21,7 +21,7 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin: process.env.NETLIFY_URL || "http://localhost:3000","https://a6--kanbas-react-web-app-24fall-gao.netlify.app"
+    origin: process.env.NETLIFY_URL || "http://localhost:3000",
   })
 );
 
