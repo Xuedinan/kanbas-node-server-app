@@ -1,4 +1,4 @@
-import Database from "../Database/index.js";
+// import Database from "../Database/index.js";
 import * as dao from "./dao.js";
 import * as modulesDao from "../Modules/dao.js";
 import * as enrollmentsDao from "../Enrollments/dao.js";
