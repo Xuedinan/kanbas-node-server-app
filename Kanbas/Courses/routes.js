@@ -2,8 +2,16 @@
 import * as dao from "./dao.js";
 import * as modulesDao from "../Modules/dao.js";
 import * as enrollmentsDao from "../Enrollments/dao.js";
+import * as assignmentsDao from "../Assignments/dao.js";
 
 export default function CourseRoutes(app) {
+  const findUsersForCourse = async (req, res) => {
+    const { cid } = req.params;
+    const users = await enrollmentsDao.findUsersForCourse(cid);
+    res.json(users);
+  };
+  app.get("/api/courses/:cid/users", findUsersForCourse);
+
   // automatically enroll the current user in the when create one
   app.post("/api/courses", async (req, res) => {
     const course = await dao.createCourse(req.body);
@@ -20,22 +28,13 @@ export default function CourseRoutes(app) {
     res.send(status);
   });
 
-  // // create new courses
-  // app.post("/api/courses", (req, res) => {
-  //   const course = { ...req.body, _id: new Date().getTime().toString() };
-  //   Database.courses.push(course);
-  //   res.send(course);
-  // });
-
-  // deploy
-
-  app.post("/api/courses/:courseId/modules", (req, res) => {
+  app.post("/api/courses/:courseId/modules", async (req, res) => {
     const { courseId } = req.params;
     const module = {
       ...req.body,
       course: courseId,
     };
-    const newModule = modulesDao.createModule(module);
+    const newModule = await modulesDao.createModule(module);
     res.send(newModule);
   });
 
@@ -55,5 +54,11 @@ export default function CourseRoutes(app) {
     const courseUpdates = req.body;
     const status = await dao.updateCourse(courseId, courseUpdates);
     res.send(status);
+  });
+
+  app.get("/api/courses/:cid/assignments", async (req, res) => {
+    const { cid } = req.params;
+    const assignments = await assignmentsDao.getAssignmentsByCourse(cid);
+    res.json(assignments);
   });
 }

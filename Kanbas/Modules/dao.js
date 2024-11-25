@@ -28,7 +28,7 @@ export function updateModule(moduleId, moduleUpdates) {
   // return module;
 }
 export function findModulesForCourse(courseId) {
-  return model.find({ course: courseId });
-  // const { modules } = Database;
-  // return modules.filter((module) => module.course === courseId);
+  console.log("courseId", courseId);
+  const res = model.find({ course: courseId });
+  return res;
 }

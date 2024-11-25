@@ -1,4 +1,4 @@
-import db from "../Database/index.js";
+// import db from "../Database/index.js";
 import * as modulesDao from "./dao.js";
 
 export default function ModuleRoutes(app) {
@@ -9,12 +9,12 @@ export default function ModuleRoutes(app) {
     res.send(status);
   });
 
-  // get all modules
-  app.get("/api/courses/:cid/modules", (req, res) => {
-    const { cid } = req.params;
-    const modules = db.modules.filter((m) => m.course === cid);
-    res.json(modules);
-  });
+  // // get all modules
+  // app.get("/api/courses/:cid/modules", (req, res) => {
+  //   const { cid } = req.params;
+  //   const modules = db.modules.filter((m) => m.course === cid);
+  //   res.json(modules);
+  // });
 
   // create new module
   app.post("/api/courses/:cid/modules", async (req, res) => {
