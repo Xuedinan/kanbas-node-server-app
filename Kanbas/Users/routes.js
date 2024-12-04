@@ -109,14 +109,14 @@ export default function UserRoutes(app) {
     const { username, password } = req.body;
     console.log("signin", username, password);
 
-    const allUsers = await dao.findAllUsers();
-    console.log("allUsers", allUsers);
+    // const allUsers = await dao.findAllUsers();
+    // console.log("allUsers", allUsers);
 
-    const allCourses = await courseDao.findAllCourses();
-    console.log("allCourses", allCourses);
+    // const allCourses = await courseDao.findAllCourses();
+    // console.log("allCourses", allCourses);
 
-    const allModules = await modulesDao.findAllModules();
-    console.log("allModules", allModules);
+    // const allModules = await modulesDao.findAllModules();
+    // console.log("allModules", allModules);
 
     const currentUser = await dao.findUserByCredentials(username, password);
     console.log("currentUser", currentUser);

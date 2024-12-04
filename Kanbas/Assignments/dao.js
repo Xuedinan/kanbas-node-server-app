@@ -14,7 +14,7 @@ export function deleteAssignment(assignmentId) {
 
 export function getAssignmentsByCourse(courseId) {
   console.log("courseId", courseId);
-  const res = model.find({ assignment: courseId });
+  const res = model.find({ course: courseId });
   return res;
 }
 
