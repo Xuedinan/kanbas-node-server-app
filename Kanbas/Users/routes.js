@@ -106,8 +106,12 @@ export default function UserRoutes(app) {
   const signin = async (req, res) => {
     const { username, password } = req.body;
     console.log("signin", username, password);
+
+    const allUsers = await dao.findAllUsers();
+    console.log("allUsers", allUsers);
     const currentUser = await dao.findUserByCredentials(username, password);
     console.log("currentUser", currentUser);
+
     if (currentUser) {
       req.session["currentUser"] = currentUser;
       res.json(currentUser);
