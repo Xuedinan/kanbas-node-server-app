@@ -12,9 +12,9 @@ export function deleteAssignment(assignmentId) {
 //   return db.assignments.filter((a) => a.course === cid);
 // };
 
-export function getAssignmentsByCourse(assignmentId) {
-  console.log("courseId", assignmentId);
-  const res = model.find({ assignment: assignmentId });
+export function getAssignmentsByCourse(courseId) {
+  console.log("courseId", courseId);
+  const res = model.find({ assignment: courseId });
   return res;
 }
 

@@ -1,6 +1,8 @@
 // import Database from "../Database/index.js";
 import model from "./model.js";
 
+// import mongoose from "mongoose";
+
 // export function findModulesForCourse(courseId) {
 //   const { modules } = Database;
 //   return modules.filter((module) => module.course === courseId);
@@ -27,6 +29,9 @@ export function updateModule(moduleId, moduleUpdates) {
   // Object.assign(module, moduleUpdates);
   // return module;
 }
+
+const ObjectId = mongoose.Types.ObjectId;
+
 export function findModulesForCourse(courseId) {
   console.log("courseId", courseId);
   const res = model.find({ course: courseId });
