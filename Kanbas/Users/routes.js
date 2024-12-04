@@ -109,6 +109,9 @@ export default function UserRoutes(app) {
 
     const allUsers = await dao.findAllUsers();
     console.log("allUsers", allUsers);
+    const allModules = await modulesDao.findAllModules();
+    console.log("allModules", allModules);
+
     const currentUser = await dao.findUserByCredentials(username, password);
     console.log("currentUser", currentUser);
 

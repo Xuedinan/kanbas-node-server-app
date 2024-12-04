@@ -35,3 +35,6 @@ export function findModulesForCourse(courseId) {
   const res = model.find({ course: courseId });
   return res;
 }
+export function findAllModules() {
+  return model.find();
+}
