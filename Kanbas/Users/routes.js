@@ -75,7 +75,7 @@ export default function UserRoutes(app) {
     const users = await dao.findAllUsers();
     res.json(users);
   };
-  app.get("/api/users", findAllUsers);
+  app.get("/api/Account/users", findAllUsers);
 
   const findUserById = async (req, res) => {
     const user = await dao.findUserById(req.params.userId);
@@ -108,15 +108,6 @@ export default function UserRoutes(app) {
   const signin = async (req, res) => {
     const { username, password } = req.body;
     console.log("signin", username, password);
-
-    // const allUsers = await dao.findAllUsers();
-    // console.log("allUsers", allUsers);
-
-    // const allCourses = await courseDao.findAllCourses();
-    // console.log("allCourses", allCourses);
-
-    // const allModules = await modulesDao.findAllModules();
-    // console.log("allModules", allModules);
 
     const currentUser = await dao.findUserByCredentials(username, password);
     console.log("currentUser", currentUser);
