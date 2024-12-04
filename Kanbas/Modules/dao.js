@@ -30,8 +30,6 @@ export function updateModule(moduleId, moduleUpdates) {
   // return module;
 }
 
-const ObjectId = mongoose.Types.ObjectId;
-
 export function findModulesForCourse(courseId) {
   console.log("courseId", courseId);
   const res = model.find({ course: courseId });
