@@ -1,6 +1,8 @@
 import * as dao from "./dao.js";
 import * as courseDao from "../Courses/dao.js";
 import * as enrollmentsDao from "../Enrollments/dao.js";
+import * as modulesDao from "../Modules/dao.js";
+
 import { model } from "mongoose";
 
 export default function UserRoutes(app) {
@@ -109,6 +111,10 @@ export default function UserRoutes(app) {
 
     const allUsers = await dao.findAllUsers();
     console.log("allUsers", allUsers);
+
+    const allCourses = await courseDao.findAllCourses();
+    console.log("allCourses", allCourses);
+
     const allModules = await modulesDao.findAllModules();
     console.log("allModules", allModules);
 
