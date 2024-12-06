@@ -31,8 +31,8 @@ export default function CourseRoutes(app) {
   app.post("/api/courses/:courseId/modules", async (req, res) => {
     const { courseId } = req.params;
     const module = {
-      ...req.body,
       course: courseId,
+      ...req.body,
     };
     const newModule = await modulesDao.createModule(module);
     res.send(newModule);
@@ -54,11 +54,5 @@ export default function CourseRoutes(app) {
     const courseUpdates = req.body;
     const status = await dao.updateCourse(courseId, courseUpdates);
     res.send(status);
-  });
-
-  app.get("/api/courses/:cid/assignments", async (req, res) => {
-    const { cid } = req.params;
-    const assignments = await assignmentsDao.getAssignmentsByCourse(cid);
-    res.json(assignments);
   });
 }
