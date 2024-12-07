@@ -28,6 +28,7 @@ export function getAssignmentsByCourse(courseId) {
 //   return newAssignment;
 // };
 export function createAssignment(assignment) {
+  console.log("assignment in dao", assignment);
   delete assignment._id;
   return model.create(assignment);
 }

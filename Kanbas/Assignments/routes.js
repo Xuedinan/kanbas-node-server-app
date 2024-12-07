@@ -1,4 +1,5 @@
 import * as assignmentsDao from "./dao.js";
+import mongoose from "mongoose";
 
 export default function AssignmentRoutes(app) {
   app.delete("/api/assignments/:aid", async (req, res) => {
@@ -31,16 +32,65 @@ export default function AssignmentRoutes(app) {
     res.json(assignments);
   });
 
+  // app.post(
+  //   "/api/courses/:cid/assignments/AssignmentEditorNew",
+  //   async (req, res) => {
+  //     const { cid } = req.params;
+  //     console.log("new assignment:", cid, req.body);
+  //     const newAssignment = await assignmentsDao.createAssignment(
+  //       cid,
+  //       req.body
+  //     );
+  //     res.json(newAssignment);
+  //   }
+  // );
+
+  // app.post(
+  //   "/api/courses/:cid/assignments/AssignmentEditorNew",
+  //   async (req, res) => {
+  //     try {
+  //       const { cid } = req.params;
+  //       console.log("new assignment:", cid, req.body);
+
+  //       if (!req.body.title) {
+  //         return res
+  //           .status(400)
+  //           .json({ error: "Assignment title is required" });
+  //       }
+
+  //       const newAssignment = await assignmentsDao.createAssignment(
+  //         cid,
+  //         req.body
+  //       );
+
+  //       res.status(201).json(newAssignment); // 201 Created
+  //     } catch (error) {
+  //       console.error("Error creating assignment:", error);
+  //       res.status(500).json({ error: "Internal server error" });
+  //     }
+  //   }
+  // );
+
   app.post(
     "/api/courses/:cid/assignments/AssignmentEditorNew",
     async (req, res) => {
-      const { cid } = req.params;
-      console.log("new assignment:", cid, req.body);
-      const newAssignment = await assignmentsDao.createAssignment(
-        cid,
-        req.body
-      );
-      res.json(newAssignment);
+      console.log("AssignmentEditorNew: in routes", req.body);
+      try {
+        const { cid } = req.params;
+
+        const assignment = {
+          ...req.body,
+          course: new mongoose.Types.ObjectId(cid), // 确保 course 是 ObjectId
+        };
+
+        console.log("Assignment passed to DAO:", assignment);
+
+        const newAssignment = await assignmentsDao.createAssignment(assignment);
+        res.status(201).json(newAssignment);
+      } catch (error) {
+        console.error("Error creating assignment:", error);
+        res.status(500).json({ error: "Internal server error" });
+      }
     }
   );
 }
